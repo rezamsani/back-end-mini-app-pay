@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace mini_app_pay.Models;
-
+   
 public class PaymentDetail
 {
     [Key]
