@@ -89,8 +89,7 @@ namespace PaymentAPI.Controllers
 
             return CreatedAtAction("GetPaymentDetail", new { id = PaymentDetail.PaymentDetailId }, PaymentDetail);
         }
-
-        // DELETE: api/PaymentDetail/5
+         
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePaymentDetail(int id)
         {
