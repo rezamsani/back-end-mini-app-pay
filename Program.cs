@@ -1,17 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using mini_app_pay.Models;
 
-
 var builder = WebApplication.CreateBuilder(args);
-       
 
 // Add Database Connection
 builder.Services.AddDbContext<PaymentDetailContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Add services to the container.
 
+// ?? ????? ???? CORS Policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        builder => builder.WithOrigins("http://localhost:4200") // ???? ?????????
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials()); // ?? ???? ???? ?? ????? ???? ?? ????? ????
+});
+
+// Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,6 +32,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// ?? ???? ???? CORS ??? ?? UseAuthorization
+app.UseCors("AllowAngularApp");
 
 app.UseAuthorization();
 
